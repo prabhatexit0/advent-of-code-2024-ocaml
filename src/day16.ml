@@ -106,24 +106,6 @@ let findStartTarget matrix =
   done;
   (!start, !end_pos)
 
-(* Part Two *)
-
-let getVisitableNodes nodes costMatrix =
-  let rec aux acc list =
-    match list with
-    | [] -> acc
-    | [ ((x, y), cost) ] ->
-        let newCost = costMatrix.(x).(y) in
-        if cost = newCost - 1 || cost = newCost - 1001 then (x, y) :: acc
-        else acc
-    | ((x, y), cost) :: rest ->
-        let newCost = costMatrix.(x).(y) in
-        if cost = newCost - 1 || cost = newCost - 1001 then
-          aux ((x, y) :: acc) rest
-        else aux acc rest
-  in
-  aux [] nodes
-
 let () =
   let stringList = read_file "./inputs/16.txt" in
   let matrix = linesToMatrix stringList in
