@@ -16,10 +16,10 @@ let printCostMatrix costMatrix =
   for i = 0 to rowCount - 1 do
     for j = 0 to colCount - 1 do
       let cost = costMatrix.(i).(j) in
-      if cost = max_int then Printf.printf "Inf\t" (* Use tab for spacing *)
-      else Printf.printf "%d \t" cost (* Use tab for spacing *)
+      if cost = max_int then Printf.printf "Inf\t"
+      else Printf.printf "%d \t" cost
     done;
-    Printf.printf "\n" (* New line after each row *)
+    Printf.printf "\n"
   done
 
 let printCharacterMatrix matrix =
@@ -27,9 +27,9 @@ let printCharacterMatrix matrix =
   let colCount = Array.length matrix.(0) in
   for i = 0 to rowCount - 1 do
     for j = 0 to colCount - 1 do
-      Printf.printf "%c\t" matrix.(i).(j) (* Print each character with a tab *)
+      Printf.printf "%c\t" matrix.(i).(j)
     done;
-    Printf.printf "\n" (* New line after each row *)
+    Printf.printf "\n"
   done
 
 let linesToMatrix grid =
@@ -124,28 +124,11 @@ let getVisitableNodes nodes costMatrix =
   in
   aux [] nodes
 
-let rec traceShortestPaths matrix costMatrix source sink accLst accCost =
-  if accCost = costMatrix.(fst sink).(snd sink) && source = sink then accLst
-  else
-    let i, j = source in
-    match matrix.(i).(j) with 'v' | '#' -> [] | _ -> []
-
 let () =
-  let stringList = read_file "input.txt" in
+  let stringList = read_file "./inputs/16.txt" in
   let matrix = linesToMatrix stringList in
   let start, target = findStartTarget matrix in
   let start_pos = Option.value ~default:(0, 0) start in
   let target_pos = Option.value ~default:(0, 0) target in
-  let cost, costMatrix = findLeastCost matrix start_pos target_pos in
-  Printf.printf "Result 1: %d\n" cost;
-  (* traceShortestPaths matrix costMatrix start_pos target_pos [] 0; *)
-  printCharacterMatrix matrix;
-  let n = Array.length matrix in
-  let m = Array.length matrix.(0) in
-  let count = ref 0 in
-  for i = 0 to n - 1 do
-    for j = 0 to m - 1 do
-      match matrix.(i).(j) with '@' -> count := !count + 1 | _ -> ()
-    done
-  done;
-  Printf.printf "Result 2: %d\n" !count
+  let cost, _ = findLeastCost matrix start_pos target_pos in
+  Printf.printf "Result 1: %d\n" cost

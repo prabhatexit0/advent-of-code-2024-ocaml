@@ -83,6 +83,6 @@ let run (a, b, c) program =
   String.concat "," (List.map string_of_int (List.rev !console))
 
 let () =
-  let (a, b, c), program = read_file "./input17.txt" |> parse_input in
+  let (a, b, c), program = read_file "./inputs/day17.txt" |> parse_input in
   let output = run (a, b, c) program in
   Printf.printf "Result 1: %s" output

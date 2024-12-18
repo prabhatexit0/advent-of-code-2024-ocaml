@@ -6,11 +6,11 @@ let read_file filename =
       read_lines (line :: acc)
     with End_of_file ->
       close_in in_channel;
-      List.rev acc (* Reverse the list to maintain the original order *)
+      List.rev acc
   in
   read_lines []
 
-let lines = read_file "input.txt"
+let lines = read_file "./inputs/01.txt"
 
 let rec print_lines lines =
   match lines with
@@ -52,7 +52,7 @@ let get_columns input_matrix =
 (* oops, a blunder again, now I'm returning just a single list *)
 (* I'm just freezing at times lol *)
 
-let rec sum_list lst =
+let sum_list lst =
   let rec aux acc = function
     | [] -> acc
     | [ x ] -> acc + x
