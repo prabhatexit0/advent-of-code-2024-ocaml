@@ -1,14 +1,4 @@
-let read_file filename =
-  let in_channel = open_in filename in
-  let rec read_lines acc =
-    try
-      let line = input_line in_channel in
-      read_lines (line :: acc)
-    with End_of_file ->
-      close_in in_channel;
-      List.rev acc (* Reverse the list to maintain the original order *)
-  in
-  read_lines []
+open Aocutils
 
 let parse_input lines =
   List.map
@@ -62,16 +52,41 @@ let find_min_steps_to_exit memory_space =
 
     level := !level + 1
   done;
-  !level
+  (found, !level)
 
-let () =
+let rec will_prevent_exit n low high bytes =
+  Printf.printf "low high %d %d\n" low high;
+  if low > high then -1
+  else
+    let mid = low + ((high - low) / 2) in
+    Printf.printf "mid %d\n" mid;
+    let found, _ =
+      List.filteri (fun i _ -> i <= mid) bytes
+      |> build_memory_space n |> find_min_steps_to_exit
+    in
+    Printf.printf "Found: %d\n" (if !found then 1 else 0);
+    if not !found then
+      let left_result = will_prevent_exit n low (mid - 1) bytes in
+      if left_result != -1 then left_result else mid
+    else will_prevent_exit n (mid + 1) high bytes
+
+let part_one () =
   let n = 71 in
   let num_of_bytes = 1024 in
   let memory_space =
-    read_file "./inputs/18.txt"
+    Aocutils.read_file "./inputs/18.txt"
     |> parse_input
     |> List.filteri (fun i _ -> i < num_of_bytes)
     |> build_memory_space n
   in
-  let result = find_min_steps_to_exit memory_space in
+  let _, result = find_min_steps_to_exit memory_space in
   Printf.printf "Result 1: %d\n" (result - 1)
+
+let part_two () =
+  let n = 71 in
+  let bytes = Aocutils.read_file "./inputs/18.txt" |> parse_input in
+  let index = will_prevent_exit n 0 (List.length bytes) bytes in
+  let x, y = List.nth bytes index in
+  Printf.printf "Result 2: %d,%d\n" y x
+
+let () = part_two ()

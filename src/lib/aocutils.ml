@@ -8,4 +8,16 @@ module Aocutils = struct
       done;
       Printf.printf "\n"
     done
+
+  let read_file filename =
+    let in_channel = open_in filename in
+    let rec read_lines acc =
+      try
+        let line = input_line in_channel in
+        read_lines (line :: acc)
+      with End_of_file ->
+        close_in in_channel;
+        List.rev acc (* Reverse the list to maintain the original order *)
+    in
+    read_lines []
 end
