@@ -1,0 +1,30 @@
+# OCaml build artifacts
+*.cmo
+*.cmi
+*.cmx
+*.o
+*.cmxa
+*.a
+*.c
+*.o
+*.exe
+*.native
+*.byte
+
+# Dune build directory
+/_build/
+
+# OCaml package files
+*.install
+*.opam
+
+# Editor and IDE files
+*.swp
+*.swo
+*.merlin
+*.dune-work/
+*.vscode/
+.idea/
+
+# Logs
+*.log
