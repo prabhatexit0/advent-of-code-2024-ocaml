@@ -22,16 +22,6 @@ let printCostMatrix costMatrix =
     Printf.printf "\n"
   done
 
-let printCharacterMatrix matrix =
-  let rowCount = Array.length matrix in
-  let colCount = Array.length matrix.(0) in
-  for i = 0 to rowCount - 1 do
-    for j = 0 to colCount - 1 do
-      Printf.printf "%c\t" matrix.(i).(j)
-    done;
-    Printf.printf "\n"
-  done
-
 let linesToMatrix grid =
   let n = List.length grid in
   let m = String.length @@ List.hd grid in

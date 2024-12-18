@@ -1,11 +1,3 @@
-(executable
- (name day1)
- (libraries threads))
-
-(executable
- (name day17)
- (libraries threads))
-
-(executable
- (name day16)
- (libraries threads))
+(executables
+ (names day1 day16 day17 day18)
+ (libraries aocutils))
