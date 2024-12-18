@@ -55,16 +55,13 @@ let find_min_steps_to_exit memory_space =
   (found, !level)
 
 let rec will_prevent_exit n low high bytes =
-  Printf.printf "low high %d %d\n" low high;
   if low > high then -1
   else
     let mid = low + ((high - low) / 2) in
-    Printf.printf "mid %d\n" mid;
     let found, _ =
       List.filteri (fun i _ -> i <= mid) bytes
       |> build_memory_space n |> find_min_steps_to_exit
     in
-    Printf.printf "Found: %d\n" (if !found then 1 else 0);
     if not !found then
       let left_result = will_prevent_exit n low (mid - 1) bytes in
       if left_result != -1 then left_result else mid
