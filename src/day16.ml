@@ -10,18 +10,6 @@ let read_file filename =
   in
   read_lines []
 
-let printCostMatrix costMatrix =
-  let rowCount = Array.length costMatrix in
-  let colCount = Array.length costMatrix.(0) in
-  for i = 0 to rowCount - 1 do
-    for j = 0 to colCount - 1 do
-      let cost = costMatrix.(i).(j) in
-      if cost = max_int then Printf.printf "Inf\t"
-      else Printf.printf "%d \t" cost
-    done;
-    Printf.printf "\n"
-  done
-
 let linesToMatrix grid =
   let n = List.length grid in
   let m = String.length @@ List.hd grid in
